@@ -30,4 +30,4 @@ router.put('/tradein/:id',(req,res,next)=>{
 });
 
 
-modules.exports = router;
+module.exports = router;
