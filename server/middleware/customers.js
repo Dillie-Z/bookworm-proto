@@ -49,13 +49,100 @@ function createCustomer(req,res){
 }
 
 function updateCustomer(req,res){
-
+  knex('customers')
+    .where({'id':req.params.id})
+    .first()
+    .then(customer=>{
+      if(!customer){
+        return next(err);
+      }
+      const {
+        firstName,
+        lastName,
+        phoneNumber
+      } = req.body;
+      if(firstName){
+        customer.firstName = firstName.toLowerCase();
+      }
+      if(lastName){
+        customer.lastName = lastName.toLowerCase();
+      }
+      if(phoneNumber){
+        customer.phoneNumber = phoneNumber;
+      }
+      knex('customers')
+        .update(customer,'*')
+        .where({'id':req.params.id})
+        .then(()=>{
+          res.json('Customer Updated');
+        });
+    })
+    .catch(err=>{
+      return err;
+    });
 }
 
 function checkoutCustomer(req,res){
+  knex('customers')
+    .where({'id':req.params.id})
+    .first()
+    .then(customer=>{
+      if(!customer){
+        return next(err);
+      }
+      const {
+        total
+      } = req.body;
+      if(total>customer.accountBalance){
+        res.json('Not enough Trade Credit');
+      }
+      if(total){
+        customer.accountBalance -= total;
+      }
 
+      knex('customers')
+        .update(customer,'*')
+        .where({'id':req.params.id})
+        .then(()=>{
+          res.json('Customer Checked Out');
+        });
+    })
+    .catch(err=>{
+      return err;
+    });
 }
 
 function tradeInCustomer(req,res){
+  knex('customers')
+    .where({'id':req.params.id})
+    .first()
+    .then(customer=>{
+      if(!customer){
+        return next(err);
+      }
+      const {
+        total
+      } = req.body;
+      if(total){
+        customer.accountBalance += total;
+      }
+      knex('customers')
+        .update(customer,'*')
+        .where({'id':req.params.id})
+        .then(()=>{
+          res.json('Customer Account Balance Updated.');
+        });
+    })
+    .catch(err=>{
+      return err;
+    });
+}
 
+module.exports = {
+  getCustomers,
+  searchCustomers,
+  createCustomer,
+  updateCustomer,
+  checkoutCustomer,
+  tradeInCustomer
 }

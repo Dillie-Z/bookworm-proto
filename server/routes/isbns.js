@@ -2,8 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-const auth = require('../../middleware/auth');
-const scan = require('../../middleware/isbns');
+const auth = require('../middleware/auth');
+const scan = require('../middleware/isbns');
 
 
 router.get('/',(req,res,next)=>{
