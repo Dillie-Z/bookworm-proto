@@ -22,7 +22,11 @@ function searchCustomers(req,res){
       if(!customers){
         return next(err);
       }
-      res.json(customers);
+      const customerList = []
+      customers.forEach(customer=>{
+        customerList.push(customer)
+      })
+      res.json(customerList);
     })
     .catch(err=>{
       return err;

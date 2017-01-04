@@ -1,84 +1,108 @@
 'use strict'
 
 const knex = require('../db/knex');
+// const http = require('http');
+// const key = require('../_config');
+// const request = require('request');
+// const searchURL = 'https://www.googleapis.com/books/v1/volumes?q=ISBN_13%3A';
+// const searchParams = '&maxResults=2&key=';
 
 
-function getBooks(req,res){
+// https: //www.googleapis.com/books/v1/volumes?q=ISBN%3A9780553588118&maxResults=2&key={YOUR_API_KEY}
+//
+// function getBookInfo(req, res) {
+//   const url = searchURL + req.params.isbn + searchParams + config.apikey;
+//   request(url, (request,info) => {
+//     console.log(res);
+//     return info;
+//   }).on('error', function(e) {
+//     console.log("Got an error: ", e);
+//   });
+// }
+
+function getBooks(req, res) {
   knex('books')
-    .then(books=>{
-      if(!books){
+    .then(books => {
+      if (!books) {
         return next(err);
       }
       res.json(books);
     })
-    .catch(err=>{
+    .catch(err => {
       return err;
     });
 }
 
-function searchTitle(req,res){
+function searchTitle(req, res) {
   knex('books')
-  .where({'title':req.body.title})
-  .then(book=>{
-    if(!book){
-      return next(err);
-    }
-    res.json(book);
-  })
-  .catch(err=>{
-    return err;
-  });
+    .where({
+      'title': req.body.title
+    })
+    .then(book => {
+      if (!book) {
+        return next(err);
+      }
+      res.json(book);
+    })
+    .catch(err => {
+      return err;
+    });
 }
 
-function searchAuthor(req,res){
+function searchAuthor(req, res) {
   knex('books')
-  .where({'author':req.body.author})
-  .then(book=>{
-    if(!book){
-      return next(err);
-    }
-    res.json(book);
-  })
-  .catch(err=>{
-    return err;
-  });
+    .where({
+      'author': req.body.author
+    })
+    .then(book => {
+      if (!book) {
+        return next(err);
+      }
+      res.json(book);
+    })
+    .catch(err => {
+      return err;
+    });
 }
 
-function addBook(req,res){
+function addBook(req, res) {
+
   const newBook = {
-    'title':req.body.title.toLowerCase(),
-    'subtitle':req.body.subtitle.toLowerCase(),
-    'author':req.body.author.toLowerCase(),
-    'publisher':req.body.publisher,
-    'publishedDate':req.body.publishedDate,
-    'description':req.body.description,
-    'retailPrice':req.body.retailPrice,
-    'storePrice':req.body.storePrice,
-    'tradeInPrice':req.body.tradeInPrice,
-    'genre':req.body.genre.toLowerCase(),
-    'quantity':1,
-    'scannedISBN':req.body.scannedISBN
+    'title': req.body.title.toLowerCase(),
+    'subtitle': req.body.subtitle.toLowerCase(),
+    'author': req.body.author.toLowerCase(),
+    'publisher': req.body.publisher,
+    'publishedDate': req.body.publishedDate,
+    'description': req.body.description,
+    'retailPrice': req.body.retailPrice,
+    'storePrice': req.body.storePrice,
+    'tradeInPrice': req.body.tradeInPrice,
+    'genre': req.body.genre.toLowerCase(),
+    'quantity': 1,
+    'scannedISBN': req.body.scannedISBN
   }
   knex('books')
-    .insert(newBook,'*')
-    .then((book)=>{
-      if(!book){
+    .insert(newBook, '*')
+    .then((book) => {
+      if (!book) {
         return next(err);
       }
       res.json('book was added')
     })
-    .catch(err=>{
+    .catch(err => {
       return err;
     });
 }
 
 
-function updateBook(req,res){
+function updateBook(req, res) {
   knex('books')
-    .where({'id':req.params.id})
+    .where({
+      'id': req.params.id
+    })
     .first()
-    .then(book=>{
-      if(!book){
+    .then(book => {
+      if (!book) {
         return next(err);
       }
       const {
@@ -95,78 +119,84 @@ function updateBook(req,res){
         quantity,
         scannedISBN
       } = req.body;
-      if(title){
+      if (title) {
         book.title = title.toLowerCase();
       }
-      if(subtitle){
+      if (subtitle) {
         book.subtitle = subtitle.toLowerCase();
       }
-      if(author){
+      if (author) {
         book.author = author.toLowerCase();
       }
-      if(publisher){
+      if (publisher) {
         book.publisher = publisher;
       }
-      if(publishedDate){
+      if (publishedDate) {
         book.publishedDate = publishedDate;
       }
-      if(description){
+      if (description) {
         book.description = description;
       }
-      if(retailPrice){
+      if (retailPrice) {
         book.retailPrice = retailPrice;
       }
-      if(storePrice){
+      if (storePrice) {
         book.storePrice = storePrice;
       }
-      if(tradeInPrice){
+      if (tradeInPrice) {
         book.tradeInPrice = tradeInPrice;
       }
-      if(genre){
+      if (genre) {
         book.genre = genre.toLowerCase();
       }
-      if(quantity){
+      if (quantity) {
         book.quantity = quantity;
       }
-      if(scannedISBN){
+      if (scannedISBN) {
         book.scannedISBN = scannedISBN;
       }
       knex('books')
-        .update(book,'*')
-        .where({'id':req.params.id})
-        .then(()=>{
-          res.json('Book Updated');
+        .update(book, '*')
+        .where({
+          'id': req.params.id
+        })
+        .then((book) => {
+          res.json(book);
         });
     })
-    .catch(err=>{
+    .catch(err => {
       return err;
     });
 }
 
-function updateQuantity(req,res){
+function updateQuantity(req, res) {
   knex('books')
-    .where({'id':req.params.id})
+    .where({
+      'id': req.params.id
+    })
     .first()
-    .then(customer=>{
-      if(!customer){
+    .then(customer => {
+      if (!customer) {
         return next(err);
       }
       const {
         quantity
       } = req.body;
 
-      if(total){
+      if (total) {
         book.quantity += quantity;
       }
 
       knex('books')
-        .update(book,'*')
-        .where({'id':req.params.id})
-        .then(()=>{
+        .update(book, '*')
+        .where({
+          'id': req.params.id
+        })
+        .then(() => {
           res.json('Book Quantity Updated');
         });
     })
-    .catch(err=>{
+    .catch(err => {
       return err;
     });
 }

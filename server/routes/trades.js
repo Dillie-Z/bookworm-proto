@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const auth = require('../../middleware/auth');
+const auth = require('../middleware/auth');
 const trade = require('../middleware/trades')
 
 router.get('/',(req,res,next)=>{
@@ -13,7 +13,7 @@ router.get('/:id',(req,res,next)=>{
   order.getTrade(req,res);
 });
 
-router.post('/',(req,res,next)=>{
+router.post('/:id',(req,res,next)=>{
   order.createTrade(req,res);
 });
 

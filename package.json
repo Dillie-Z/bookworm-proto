@@ -5,13 +5,14 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng build && node ./bin/www",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor",
     "knex": "knex",
-    "build":"ng build && node ./bin/www"
+    "build": "ng build && node ./bin/www",
+    "serve": "ng serve"
   },
   "private": true,
   "dependencies": {
@@ -23,11 +24,15 @@
     "@angular/platform-browser": "^2.3.1",
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/router": "^3.3.1",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.15",
     "body-parser": "^1.15.2",
+    "bootstrap": "^4.0.0-alpha.5",
     "core-js": "^2.4.1",
     "express": "^4.14.0",
     "knex": "^0.12.6",
+    "ng2-bootstrap": "^1.1.16-11",
     "pg": "^6.1.2",
+    "request": "^2.79.0",
     "rxjs": "^5.0.1",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.2"
@@ -49,5 +54,8 @@
     "ts-node": "1.2.1",
     "tslint": "^4.0.2",
     "typescript": "~2.0.3"
+  },
+  "engines": {
+    "node": "6.3.1"
   }
 }

@@ -1,0 +1,13 @@
+.active {
+  color: #fff;
+}
+.navbar-toggler {
+  border: solid 1px silver;
+  border-radius: 2px;
+  color: #eee;
+}
+
+.navbar {
+  box-shadow: 5px 4px 8px 0 rgba(0, 0, 0, 0.2), 5px 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}

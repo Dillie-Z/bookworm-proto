@@ -7,7 +7,7 @@ exports.seed = function(knex, Promise) {
                 lastName: 'kerbin',
                 email: 'bob@kerbinmail.com',
                 hashedPassword: '$2y$10$6Pbgpnj5wSTaibgLrIZOHOd08gKM9YTemhVMsZVkotWzJTeS/etDG',
-                admin:'admin',
+                type:'owner',
                 created_at: new Date('2016-06-26 14:26:16 UTC'),
                 updated_at: new Date('2016-06-26 14:26:16 UTC')
             }, {

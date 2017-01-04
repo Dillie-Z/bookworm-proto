@@ -2,24 +2,28 @@
 
 const knex = require('../db/knex');
 
-
+// JSON.stringify({success:1})
 function scanBook(req,res){
-  let isbn = req.body.isbn;
-  knex('isbn')
-    .insert(isbn,'*');
+  // let isbn = req.body.isbn;
+  console.log('params... ' + req.params.isbn);
+  console.log('body' + req.body.isbn);
+  knex('isbns')
+    .insert({isbn:req.body.isbn},'*')
     .then((row)=>{
       if(!row){
         return next(err);
       }
-      return res.json('Book Scanned.')
+      console.log(row+'   row');
+      console.log(res.body);
+      res.json(JSON.stringify({success:1}));
     })
     .catch((err)=>{
-      return err
+      return err;
     });
 }
 
 function getScannedIsbns(req,res){
-  knex('isnbs')
+  knex('isbns')
     .then(isbns=>{
       if(!isbns){
         return next(err);

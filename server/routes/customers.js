@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const customer = require('../middleware/customers')
+const customer = require('../middleware/customers');
 
 router.get('/',(req,res,next)=>{
   customer.getCustomers(req,res);
@@ -19,7 +19,7 @@ router.post('/',(req,res,next)=>{
 
 router.put('/:id',(req,res,next)=>{
   customer.updateCustomer(req,res);
-})
+});
 
 router.put('/checkout/:id',(req,res,next)=>{
   customer.checkoutCustomer(req,res);

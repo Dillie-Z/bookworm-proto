@@ -11,9 +11,12 @@ const trades = require('./trades');
 const login = require('./users/login');
 const logout = require('./users/logout');
 const signup = require('./users/signup');
+const search = require('./users/search');
+
+
 
 router.use('/books',books);
-router.use('/customers'.customers);
+router.use('/customers',customers);
 router.use('/isbns',isbns);
 router.use('/orderItems',orderItems);
 router.use('/orders',orders);
@@ -22,6 +25,9 @@ router.use('/trades',trades);
 router.use('/login',login);
 router.use('/logout',logout);
 router.use('/signup', signup);
+router.use('/users/search', search);
+
+console.log('Index Conjured!');
 
 router.get('/',(req,res)=>{
   res.send('Index Conjured');

@@ -5,7 +5,7 @@
  */
 
 var app = require('../server/server.js');
-var debug = require('debug')('reddit-clone-crud:server');
+var debug = require('debug')('bookworm-proto-v1:server');
 var http = require('http');
 
 /**
