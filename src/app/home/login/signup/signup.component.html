@@ -1,0 +1,44 @@
+<div class="parallax">
+  <div class="container-fluid">
+      <div class=" background-login">
+        <div class="form-wrapper">
+        <h2 class="login-title ">Log-in</h2>
+        <div class="bookworm-img"></div>
+        <div class="row">
+          <div class="col-md-12 center ">
+            <div class="alert alert-danger" role="alert" *ngIf="message">
+              {{ message }}
+            </div>
+            <form class="form-inline" *ngIf="!authService.getUser()">
+              <div class="row center form-row">
+                <div class="col-md-12 ">
+                  <div class="form-group">
+                    <!-- <label for="email">User:</label> -->
+                    <input class="form-control" name="email" placeholder="Email" #email>
+                  </div>
+                </div>
+              </div>
+              <div class="row center form-row">
+                <div class="col-md-12 ">
+                  <div class="form-group">
+                    <!-- <label for="password">Password:</label> -->
+                    <input class="form-control" type="password" placeholder="Password" name="password" #password>
+                  </div>
+                </div>
+              </div>
+              <div class="row center form-row">
+                <div class="col-md-12 center ">
+                  <a class="btn btn-primary-outline btn-banner" (click)="login(email.value, password.value)">Submit</a>
+                </div>
+              </div>
+            </form>
+            <div class="well" *ngIf="authService.getUser()">
+              Logged in as <b>{{ authService.getUser() }}</b>
+              <a class="btn btn-primary-outline btn-banner" (click)="logout()">Log out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

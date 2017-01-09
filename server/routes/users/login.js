@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
+const adminRouter = express.Router();
+
+const auth = require('../../middleware/auth');
 
 
-router.post('/', passport.authenticate('local',{
-  successRedirect:'#/',
-  failureRedirect:'#/',
-  failureFlash: true
-}),(req,res,next)=>{
-  console.log('Spell of Entry was a Sucsess');
+router.post('/',(req,res,next)=>{
+  // auth.isAdmin(req,res)
+  auth.authenticate(req, res);
 });
 
 module.exports = router;

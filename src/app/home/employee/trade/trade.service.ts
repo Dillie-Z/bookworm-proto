@@ -14,7 +14,7 @@ export class TradeService {
     return this.http.post('/index/customers', JSON.stringify(data), {headers: headers});
   }
 
-  searchCustomer(data) {
+  searchCustomers(data) {
     let headers = new Headers();
 
     headers.append('Content-Type', 'application/json');

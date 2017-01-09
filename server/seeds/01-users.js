@@ -7,10 +7,18 @@ exports.seed = function(knex, Promise) {
                 lastName: 'kerbin',
                 email: 'bob@kerbinmail.com',
                 hashedPassword: '$2y$10$6Pbgpnj5wSTaibgLrIZOHOd08gKM9YTemhVMsZVkotWzJTeS/etDG',
-                type:'owner',
+                type:'admin',
                 created_at: new Date('2016-06-26 14:26:16 UTC'),
                 updated_at: new Date('2016-06-26 14:26:16 UTC')
             }, {
+                firstName: 'zack',
+                lastName: 'kerbin',
+                email: 'zack@email.com',
+                hashedPassword: '$2y$12$5tjY4aSI1ss5/UNXJuxaE.gMB1/UuQzHRynhXWBfzs16VJH2SwTF2',
+                type:'admin',
+                created_at: new Date('2016-06-26 14:26:16 UTC'),
+                updated_at: new Date('2016-06-26 14:26:16 UTC')
+            },{
                 firstName: 'jeb',
                 lastName: 'kerbin',
                 email: 'jeb@kerbinmail.com',

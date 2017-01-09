@@ -175,16 +175,16 @@ function updateQuantity(req, res) {
       'id': req.params.id
     })
     .first()
-    .then(customer => {
-      if (!customer) {
+    .then(book => {
+      if (!book) {
         return next(err);
       }
       const {
         quantity
       } = req.body;
 
-      if (total) {
-        book.quantity += quantity;
+      if (quantity) {
+        book.quantity ++;
       }
 
       knex('books')
@@ -193,7 +193,7 @@ function updateQuantity(req, res) {
           'id': req.params.id
         })
         .then(() => {
-          res.json('Book Quantity Updated');
+          res.json(book);
         });
     })
     .catch(err => {

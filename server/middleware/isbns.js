@@ -3,76 +3,101 @@
 const knex = require('../db/knex');
 
 // JSON.stringify({success:1})
-function scanBook(req,res){
+function scanBook(req, res) {
   // let isbn = req.body.isbn;
   console.log('params... ' + req.params.isbn);
   console.log('body' + req.body.isbn);
   knex('isbns')
-    .insert({isbn:req.body.isbn},'*')
-    .then((row)=>{
-      if(!row){
+    .insert({
+      isbn: req.body.isbn
+    }, '*')
+    .then((row) => {
+      if (!row) {
         return next(err);
       }
-      console.log(row+'   row');
+      console.log(row + '   row');
       console.log(res.body);
-      res.json(JSON.stringify({success:1}));
+      res.json(JSON.stringify({
+        success: 1
+      }));
     })
-    .catch((err)=>{
+    .catch((err) => {
       return err;
     });
 }
 
-function getScannedIsbns(req,res){
+function getScannedIsbns(req, res) {
   knex('isbns')
-    .then(isbns=>{
-      if(!isbns){
+    .then(isbns => {
+      if (!isbns) {
         return next(err);
       }
       res.json(isbns);
     })
-    .catch(err=>{
+    .catch(err => {
       return err;
     });
 }
 
-function checkIsbn(req,res){
+function checkIsbn(req, res) {
   knex('books')
-    .where({'scannedISBN':req.params.isbn})
+    .where({
+      'scannedISBN': req.params.isbn
+    })
     .first()
-    .then(book=>{
-      if(!book){
+    .then(book => {
+      if (!book) {
         res.json('No Book with that ISBN in the DataBase.');
       }
       res.json(book);
     })
-    .catch(err=>{
+    .catch(err => {
       return err;
     });
 }
 
-function deleteIsbn(req,res){
+function deleteIsbn(req, res) {
   knex('isbns')
-    .where({'scannedISBN':req.params.isbn})
+    .where({
+      'scannedISBN': req.params.isbn
+    })
     .first()
-    .then(isbn=>{
-      if(!isbn){
+    .then(isbn => {
+      if (!isbn) {
         res.json('No Book with that ISBN in the DataBase.');
       }
       return knex('isbns')
-          .del()
-          .where({'scannedISBN':req.params.isbn});
+        .del()
+        .where({
+          'scannedISBN': req.params.isbn
+        });
     })
-    .then(()=>{
+    .then(() => {
       res.json('isbn deleted');
     })
-    .catch(err=>{
+    .catch(err => {
       return err;
     });
 }
+
+function deleteAllIsbn(req, res) {
+
+  knex('isbns')
+    .del()
+    .then(() => {
+      res.json('isbn deleted');
+    })
+    .catch(err => {
+      return err;
+    });
+
+}
+
 
 module.exports = {
   scanBook,
   getScannedIsbns,
   checkIsbn,
-  deleteIsbn
+  deleteIsbn,
+  deleteAllIsbn
 };

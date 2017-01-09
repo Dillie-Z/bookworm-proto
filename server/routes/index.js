@@ -9,9 +9,10 @@ const orders = require('./orders');
 const tradeItems = require('./tradeItems');
 const trades = require('./trades');
 const login = require('./users/login');
-const logout = require('./users/logout');
+// const logout = require('./users/logout');
 const signup = require('./users/signup');
-const search = require('./users/search');
+// const search = requires('./users/search');
+const admin = require('./users/admin');
 
 
 
@@ -23,9 +24,10 @@ router.use('/orders',orders);
 router.use('/tradeItems',tradeItems);
 router.use('/trades',trades);
 router.use('/login',login);
-router.use('/logout',logout);
+// router.use('/logout',logout);
 router.use('/signup', signup);
-router.use('/users/search', search);
+// router.use('/users/search', search);
+// routers.use('/users/admin', admin);
 
 console.log('Index Conjured!');
 

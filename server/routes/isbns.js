@@ -16,7 +16,7 @@ router.get('/:isbn',(req,res,next)=>{
 });
 
 router.post('/',(req,res,next) => {
-  console.log(res.body + '   :res');
+  // conssole.log(res.body + '   :res');
   scan.scanBook(req,res);
 });
 

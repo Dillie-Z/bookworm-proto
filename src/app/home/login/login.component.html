@@ -1,9 +1,138 @@
-<div class="jumbotron jumbotron-fluid" id="banner">
-  <div class="parallax text-center">
-    <div class="parallax-pattern-overlay">
-      <div class="container" id="size-banner">
-      
+<div class="parallax">
+  <div class="container-fluid">
+      <div class=" background-login">
+        <div class="form-wrapper">
+        <h2 class="login-title ">Log-in</h2>
+        <div class="bookworm-img"></div>
+        <div class="row">
+          <div class="col-md-12 center ">
+            <div class="alert alert-danger" role="alert" *ngIf="message">
+              {{ message }}
+            </div>
+            <form class="form-inline" *ngIf="!authService.getUser()">
+              <div class="row center form-row">
+                <div class="col-md-12 ">
+                  <div class="form-group">
+                    <!-- <label for="email">User:</label> -->
+                    <input class="form-control" name="email" placeholder="Email" #email>
+                  </div>
+                </div>
+              </div>
+              <div class="row center form-row">
+                <div class="col-md-12 ">
+                  <div class="form-group">
+                    <!-- <label for="password">Password:</label> -->
+                    <input class="form-control" type="password" placeholder="Password" name="password" #password>
+                  </div>
+                </div>
+              </div>
+              <div class="row center form-row">
+                <div class="col-md-12 center ">
+                  <a class="btn btn-primary-outline btn-banner" (click)="login(email.value, password.value)">Submit</a>
+                </div>
+              </div>
+            </form>
+            <div class="background-login" *ngIf="authService.getUser()">
+              Logged in as <b>{{ user.lastName }},{{ user.firstName }}</b>
+              <a class="btn btn-primary-outline btn-banner" (click)="logout()">Log out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class=" col-md-12 center sign-up-banner form-row">
+          <span>Not Signed Up Yet? <a routerLinkActive="active" [routerLink]="['signup']"> -Click Here- </a></span>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+<!-- <form (ngSubmit)="login()">
+    <div class="row">
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span>
+          <input type="email" class="form-control" placeholder="Email" [(ngModel)]="email" name="email">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
+            <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <button type="submit" class="btn btn-warning btn-block">Update</button>
+      </div>
+    </div>
+  </form> -->
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="jumbotron jumbotron-fluid" id="banner">
+  <div class="parallax text-center">
+    <div class="parallax-pattern-overlay outer row">
+      <div class="login-banner">
+        <div class="container row inner-banner" id="size-banner">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3 ">
+              <h2>Log-in</h2>
+            </div>
+          </div>
+          <form class="inner col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 offset-md-3 offset-lg-3 offset-xl-3">
+            <div class="row">
+              <div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-2 offset-lg-2 offset-xl-2">
+                <input type="text" class="form-control" id="firstName" placeholder="Enter First Name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-2 offset-lg-2 offset-xl-2">
+                <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-2 offset-lg-2 offset-xl-2">
+                <input type="email" class="form-control" id="email" placeholder="Enter email">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-2 offset-lg-2 offset-xl-2">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-2 offset-lg-2 offset-xl-2">
+                <button type="submit" class="btn btn-primary-outline btn-banner">Submit</button>
+              </div>
+            </div>
+          </form>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-2 offset-lg-2 offset-xl-2">
+              <span>Not Signed Up Yet? <a routerLinkActive="active" [routerLink]="['signup']"> -Click Here- </a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

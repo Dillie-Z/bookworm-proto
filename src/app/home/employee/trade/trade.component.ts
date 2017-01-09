@@ -46,7 +46,7 @@ export class TradeComponent {
   }
 
   findCustomers(){
-    this.tradeService.searchCustomer(this.lastName).subscribe((list)=>{
+    this.tradeService.searchCustomers(this.lastName).subscribe((list)=>{
       this.customerList = list;
     });
     this.lastName = '';

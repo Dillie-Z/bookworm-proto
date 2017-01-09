@@ -6,18 +6,27 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('cookie-session');
-const passconfig = require('./config/passport');
-const passport = require('passport')
+const jwt = require('jsonwebtoken');
+const config = require('./_config');
+
+// const passconfig = require('./config/passport');
+// const passport = require('passport')
 
 const app = express();
 
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(session({secret:config.superSecret}));
+app.use((req,res,next)=>{
+  res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+	next();
+})
 app.use(express.static(path.join(__dirname, '../dist')));
-app.use(session({secret:'$2a$06$0lrvkfkSz7HScOD4gIyrCumIG8F.i3LpAsH3tT3gNz9/i0P3bt4MW'})); // unhashed:ilovescotchscotchyscotchscotch
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 const index = require('./routes/index.js');
 app.use('/index', index);

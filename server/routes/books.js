@@ -14,6 +14,7 @@ router.get('/',(req,res,next)=>{
   book.getBooks(req,res);
 });
 
+
 router.get('/info/:isbn',(req,res,next)=>{
   // console.log(req);
   const url = searchURL + req.params.isbn + searchParams + config.apikey;
@@ -49,7 +50,7 @@ router.put('/:id',(req,res,next)=>{
   book.updateBook(req,res);
 });
 
-router.put('/quantity/:id',(req,res,next)=>{
+router.put('/quantity/:isbn',(req,res,next)=>{
   book.updateQuantity(req,res);
 });
 

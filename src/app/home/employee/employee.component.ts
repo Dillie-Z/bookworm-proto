@@ -1,10 +1,10 @@
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class HomeComponent {
+export class EmployeeComponent {
 
 }

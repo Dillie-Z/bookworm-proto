@@ -23,6 +23,8 @@ _config.js
 !.vscode/extensions.json
 
 # misc
+_config1.js
+_config1.pub.js
 /.sass-cache
 /connect.lock
 /coverage/*
