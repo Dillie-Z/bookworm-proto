@@ -14,6 +14,13 @@ router.get('/',(req,res,next)=>{
   book.getBooks(req,res);
 });
 
+router.get('/author',(req,res,next)=>{
+  book.getBookByAuthor(req,res);
+})
+
+router.get('/title',(req,res,next)=>{
+  book.getBookByTitle(req,res);
+})
 
 router.get('/info/:isbn',(req,res,next)=>{
   // console.log(req);
@@ -50,7 +57,7 @@ router.put('/:id',(req,res,next)=>{
   book.updateBook(req,res);
 });
 
-router.put('/quantity/:isbn',(req,res,next)=>{
+router.get('/quantity/:isbn',(req,res,next)=>{
   book.updateQuantity(req,res);
 });
 

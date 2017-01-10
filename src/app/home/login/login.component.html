@@ -9,7 +9,7 @@
             <div class="alert alert-danger" role="alert" *ngIf="message">
               {{ message }}
             </div>
-            <form class="form-inline" *ngIf="!authService.getUser()">
+            <form class="form-inline" >
               <div class="row center form-row">
                 <div class="col-md-12 ">
                   <div class="form-group">
@@ -32,10 +32,6 @@
                 </div>
               </div>
             </form>
-            <div class="background-login" *ngIf="authService.getUser()">
-              Logged in as <b>{{ user.lastName }},{{ user.firstName }}</b>
-              <a class="btn btn-primary-outline btn-banner" (click)="logout()">Log out</a>
-            </div>
           </div>
         </div>
       </div>

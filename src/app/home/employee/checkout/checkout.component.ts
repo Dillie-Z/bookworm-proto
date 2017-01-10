@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+
 
 @Component({
-  selector: 'checkout',
-  templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']
+  selector: 'employee',
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.css'],
+  providers: [ ]
 })
-export class CheckoutComponent {
+export class EmployeeComponent {
 
 }

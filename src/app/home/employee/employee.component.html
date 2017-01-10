@@ -1,1 +1,20 @@
-<h1>employee bb lets start the real work</h1>
+<div class="employee-wrapper parallax">
+  <div class="action-selector-wrapper">
+    <div class="action-selctor">
+      <div class="action-btn">
+          <a class="btn btn-primary-outline btn-banner" (click)="setActionSearch()">Search</a>
+      </div>
+      <div class="action-btn">
+          <a class="btn btn-primary-outline btn-banner" (click)="setActionScanner()">Scanner</a>
+      </div>
+    </div>
+  </div>
+  <div class="action-wrapper">
+    <div class="scanner-if-wrapper" *ngIf="currentScannnerAction">
+      <scanner></scanner>
+    </div>
+    <div class="search-if-wrapper" *ngIf="currentSearchAction">
+      <search></search>
+    </div>
+  </div>
+</div>

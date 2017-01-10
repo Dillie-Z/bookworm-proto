@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './auth.service';
-// import { CommonModule } from '@angular/common';
+// import { AuthService } from 'angular2-jwt';
 import { Router } from '@angular/router'
 
 
@@ -15,12 +15,13 @@ import { Router } from '@angular/router'
 
 export class LoginComponent {
   message: string;
-  user: {
-    firstName: string,
-    lastName: string
-  }
+  firstName: string;
+  type: string;
+
   constructor(public authService: AuthService, public router:Router) {
     this.message = '';
+    this.firstName = '';
+    this.type = '';
   }
 
   login(email: string, password: string){
@@ -32,25 +33,24 @@ export class LoginComponent {
       //   this.message = '';
       // }.bind(this), 2500);
 
-
+    // this.firstName = userData.firstName;
+    // this.type = userData.type;
   };
 
   getUser(){
-    const userData = this.authService.getUser()
-    this.user = {
-      firstName:userData.token.firstName,
-      lastName:userData.token.lastName
-    }
+    var user = this.authService.getUser();
+    this.firstName = user.name;
+    this.type = user.type;
   }
 
   logout(){
     this.authService.logout();
     this.router.navigate(['']);
   }
+
+
+
 }
-
-
-
 
 
 

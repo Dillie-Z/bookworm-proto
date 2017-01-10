@@ -1,23 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Route } from '@angular/router';
-import { CheckoutComponent } from './checkout.component';
-import { ScanComponent } from './scan.component';
-import { TradeComponent } from './trade.component';
-import { ShiftComponent } from './shift.component'
+// import { CheckoutComponent } from './checkout/checkout.component';
+import { EmployeeComponent } from './employee.component';
+import { ScanComponent } from './scan/scan.component';
+// import { ScannerComponent } from './scanner.component'
+import { TradeComponent } from './trade/trade.component';
+// import { ShiftComponent } from './shift/shift.component'
 
 export const MODULE_ROUTES: Route[] = [
-  { path: 'employee', pathMatch: 'full' , component: EmployeeComponent },
-  { path: 'trade', component: TradeComponent },
-  { path: 'scan', component: ScanComponent },
-  { path: 'checkout', component: CheckoutComponent },
-  { path: 'shift', component: ShiftComponent}
-
+  { path: 'employee', pathMatch: 'full' , component: EmployeeComponent }
 ]
 
 export const MODULE_COMPONENTS = [
-  EmployeeComponent,
-  TradeComponent,
-  ScanComponent,
-  CheckoutComponent,
-  ShiftComponent
+
 ]

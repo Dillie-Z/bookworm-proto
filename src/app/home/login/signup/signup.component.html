@@ -2,7 +2,7 @@
   <div class="container-fluid">
       <div class=" background-login">
         <div class="form-wrapper">
-        <h2 class="login-title ">Log-in</h2>
+        <h2 class="login-title ">Sign-Up</h2>
         <div class="bookworm-img"></div>
         <div class="row">
           <div class="col-md-12 center ">
@@ -10,6 +10,22 @@
               {{ message }}
             </div>
             <form class="form-inline" *ngIf="!authService.getUser()">
+              <div class="row center form-row">
+                <div class="col-md-12 ">
+                  <div class="form-group">
+                    <!-- <label for="email">User:</label> -->
+                    <input class="form-control" name="firstName" placeholder="First Name" #firstName>
+                  </div>
+                </div>
+              </div>
+              <div class="row center form-row">
+                <div class="col-md-12 ">
+                  <div class="form-group">
+                    <!-- <label for="email">User:</label> -->
+                    <input class="form-control" name="lastName" placeholder="Last Name" #lastName>
+                  </div>
+                </div>
+              </div>
               <div class="row center form-row">
                 <div class="col-md-12 ">
                   <div class="form-group">
@@ -28,15 +44,20 @@
               </div>
               <div class="row center form-row">
                 <div class="col-md-12 center ">
-                  <a class="btn btn-primary-outline btn-banner" (click)="login(email.value, password.value)">Submit</a>
+                  <a class="btn btn-primary-outline btn-banner" (click)="signup(email.value, password.value)">Submit</a>
                 </div>
               </div>
             </form>
-            <div class="well" *ngIf="authService.getUser()">
-              Logged in as <b>{{ authService.getUser() }}</b>
+            <div class="background-login" *ngIf="authService.getUser()">
+              Logged in as <b>{{ user.firstName }},{{ user.type }}</b>
               <a class="btn btn-primary-outline btn-banner" (click)="logout()">Log out</a>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class=" col-md-12 center sign-up-banner form-row">
+          <span>Signed Up Already? <a routerLinkActive="active" [routerLink]="['login']"> -Click Here- </a></span>
         </div>
       </div>
     </div>

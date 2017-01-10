@@ -44,18 +44,10 @@ function authenticate(req, res) {
             algorithm:'HS256',
             expiresIn: '1h'
           });
-
-          // if(token.type === admin){
-          //   res.
-          // }
-
-
-
-
           console.log('token user' + token);
           res.json({
-            success: true,
-            message: 'Enjoy your token!',
+            firstName: user.firstName,
+            type: user.type,
             token: token
           });
         }
@@ -64,18 +56,18 @@ function authenticate(req, res) {
     .catch(err => {
       return err;
     });
-}
+  }
 
 
 
-function createUser(req, res) {
-  const hash = bcrypt.hashSync(req.body.password, 12);
-  knex('users')
-    .where('email', req.body.email)
-    .first()
-    .then((user) => {
-      if (!user) {
-        console.log('email, pass', req.body.email, req.body.password);
+  function createUser(req, res) {
+    const hash = bcrypt.hashSync(req.body.password, 12);
+    knex('users')
+      .where('email', req.body.email)
+      .first()
+      .then((user) => {
+        if (!user) {
+          console.log('email, pass', req.body.email, req.body.password);
         let newUser = {
           firstName: req.body.firstName,
           lastName: req.body.lastName,
@@ -85,34 +77,33 @@ function createUser(req, res) {
         // console.log(newUser);
         return knex('users')
           .insert((newUser), '*');
+        }
+      })
+      .then((rows) => {
+        if (!rows) {
+          return next(err);
+        }
+        res.json({
+          success: true,
+          message: 'A user was conjured. '
+        });
+      })
+      .catch((err) => {
+        if (err) {
+          return (err);
       }
     })
-    .then((rows) => {
-      if (!rows) {
-        return next(err);
-      }
-      res.json({
-        success: true,
-        message: 'A user was conjured. '
-      });
-    })
-    .catch((err) => {
-      if (err) {
-        // duplicate entry
-        return (err);
-      }
-    });
-}
+  }
 
-function isLoggedIn(req, res) {
-  console.log('Somebody just Conjured in to the app!');
+  function isLoggedIn(req, res) {
+    console.log('Somebody just Conjured in to the app!');
 
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-  if (token) {
+    if (token) {
 
-    // verifies secret and checks exp
-    jwt.verify(token, superSecret, function(err, decoded) {
+      // verifies secret and checks exp
+      jwt.verify(token, superSecret, (err, decoded) => {
       if (err) {
         return res.json({
           success: false,
@@ -124,41 +115,39 @@ function isLoggedIn(req, res) {
         next(); // make sure we go to the next routes and don't stop here
       }
     });
-
-  } else {
-
+    } else {
     // if there is no token
     // return an HTTP response of 403 (access forbidden) and an error message
-    return res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    });
+      return res.status(403).send({
+        success: false,
+        message: 'No token provided.'
+      });
+    }
   }
-}
 
-function isAdmin(req, res) {
-  knex('users')
-    .where('email', req.body.email)
-    .first()
-    .then((user) => {
-        if (!user) {
-          res.json({
-            success: false,
-            message: 'Authentication failed. User not found.'
-          });
-        } else if (user) {
-          // const valid = validPassword(req.body.password, user.hashedPassword);
-          jwt.verify(token, superSecret, function(err, decoded) {
-            if (err) {
-              return res.json({
-                success: false,
-                message: 'Failed to authenticate token.'
-              });
-            } else if (user.type === 'admin') {
-              // if everything is good, save to request for use in other routes
-              req.decoded = decoded;
-              next(); // make sure we go to the next routes and don't stop here
-            } else {
+  function isAdmin(req, res) {
+    knex('users')
+      .where('email', req.body.email)
+      .first()
+      .then((user) => {
+          if (!user) {
+            res.json({
+              success: false,
+              message: 'Authentication failed. User not found.'
+            });
+          } else if (user) {
+            // const valid = validPassword(req.body.password, user.hashedPassword);
+            jwt.verify(token, superSecret, function(err, decoded) {
+              if (err) {
+                return res.json({
+                  success: false,
+                  message: 'Failed to authenticate token.'
+                });
+              } else if (user.type === 'admin') {
+                // if everything is good, save to request for use in other routes
+                req.decoded = decoded;
+                next(); // make sure we go to the next routes and don't stop here
+              } else {
               return res.status(403).send({
                 success: false,
                 message: 'No Admin token provided.'

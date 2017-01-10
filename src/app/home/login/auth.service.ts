@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-
-
+// import { JwtHelper } from 'angular2-jwt';
 @Injectable()
 export class AuthService {
   constructor(public http: Http) { }
+
+  // this.jwtHelper = new JwtHelper()
   login(email: string, password: string){
 
 
     // let bodyString = JSON.stringify(body);
-    let headers      = new Headers({ 'Content-Type': 'application/json' });
-    let options       = new RequestOptions({ headers: headers });
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
 
     this.http.post(
       '/index/login',
@@ -22,35 +23,30 @@ export class AuthService {
         const data = res.json();
         // this.loading = false;
         console.log('data' + data.success)
-        if(data.token) {
-          localStorage.setItem('user', data);
-        }
+
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('name', data.firstName);
+          localStorage.setItem('type', data.type);
+
       });
+    }
 
-  }
-  // if(email === 'email' && password === 'password') {
-  //   localStorage.setItem('token', );
-  //   return true;
-  // }
 
-  //   return false;
-  // }
+    logout(): any {
+      localStorage.removeItem('token');
+      localStorage.removeItem('name');
+      localStorage.removeItem('type');
+    }
 
-logout(): any {
-  localStorage.removeItem('user');
-}
+    getUser(): any {
+      const name = localStorage.getItem('name');
+      const type = localStorage.getItem('type');
+      return {name:name,type:type}
+    }
 
-getUser(): any {
-
-  const userData = localStorage.getItem('user');
-
-  return userData
-
-}
-
-isLoggedIn(): boolean {
-  return this.getUser() !== null;
-}
+    isLoggedIn(): boolean {
+      return this.getUser() !== null;
+    }
 }
 
 export var AUTH_PROVIDERS: Array<any> = [

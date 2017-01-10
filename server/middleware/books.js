@@ -184,9 +184,10 @@ function updateQuantity(req, res) {
       } = req.body;
 
       if (quantity) {
-        book.quantity ++;
-      }
 
+          book.quantity++;
+
+      }
       knex('books')
         .update(book, '*')
         .where({
@@ -200,6 +201,7 @@ function updateQuantity(req, res) {
       return err;
     });
 }
+
 
 module.exports = {
   getBooks,
